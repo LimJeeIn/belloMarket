@@ -24,6 +24,7 @@
     }
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "jsx-a11y/alt-text": "error",
     "jsx-a11y/img-redundant-alt": "error"
   }

@@ -2,7 +2,6 @@
 벨로마켓
 
 
-
 ## 실행 화면
 
 
@@ -10,4 +9,8 @@
 - 
 
 ## 개발 환경
+HTML,
+Tailwind CSS,
+React,
+Firebase
 

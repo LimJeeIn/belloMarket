@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { FaEquals } from 'react-icons/fa';
@@ -9,6 +10,7 @@ import useCart from '../hooks/useCart';
 const SHIPPING = 3000;
 
 export default function MyCart() {
+  const navigate = useNavigate();
   const {
     cartQuery: { isLoading, data: products },
   } = useCart();
@@ -43,7 +45,7 @@ export default function MyCart() {
             <FaEquals className="shrink-0" />
             <PriceCard text="총가격" price={totalPrice + SHIPPING} />
           </div>
-          <Button text="주문하기" />
+          <Button text="주문하기" onClick={() => navigate('/checkout')} />
         </>
       )}
     </section>

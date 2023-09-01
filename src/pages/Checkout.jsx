@@ -17,7 +17,6 @@ export default function Checkout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 여기서 결제 처리 로직을 실행하면 됩니다.
     console.log('결제가 진행되었습니다.');
   };
 

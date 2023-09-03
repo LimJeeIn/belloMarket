@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FcCloseUpMode, FcAbout } from 'react-icons/fc';
+import { FcAbout } from 'react-icons/fc';
 import User from './User';
 import Button from './ui/Button';
 import { useAuthContext } from '../context/AuthContext';
@@ -12,7 +12,6 @@ export default function Navbar() {
   return (
     <header className="flex justify-between border-b border-gray-300 p-2">
       <Link to="/" className="flex items-center text-4xl text-brand">
-        <FcCloseUpMode />
         <h1>Bello Market</h1>
       </Link>
       <nav className="flex items-center gap-4 font-semibold">

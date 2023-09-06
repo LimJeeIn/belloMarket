@@ -26,8 +26,12 @@ export default function ProductDetail() {
   return (
     <>
       <p className="mx-12 mt-4 text-gray-700">{category}</p>
-      <section className="flex flex-col p-4">
-        <img className="w-full px-4 basis-7/12" src={image} alt={title} />
+      <section className="flex flex-row p-4">
+        <img
+          className="w-1/2 h-1/2 object-contain px-4 basis-7/12"
+          src={image}
+          alt={title}
+        />
         <div className="w-full basis-5/12 flex flex-col p-4">
           <h2 className="text-3xl font-bold py-2">{title}</h2>
           <p className="text-2xl font-bold py-2  border-b border-gray-400">

@@ -5,17 +5,13 @@ import User from './User';
 import Button from './ui/Button';
 import { useAuthContext } from '../context/AuthContext';
 import CartStatus from './CartStatus';
-import logo from '../assets/image/logo.png';
 
 export default function Navbar() {
   const { user, login, logout } = useAuthContext();
 
   return (
     <header className="flex justify-between border-b border-gray-300 p-2">
-      <Link to="/" className="flex items-center text-4xl text-brand">
-        <h1>Bello Market</h1>
-        <img src={logo} alt="Logo" />
-      </Link>
+      <Link to="/" className="flex items-center text-4xl text-brand"></Link>
       <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
         {user && (

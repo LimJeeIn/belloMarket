@@ -17,7 +17,7 @@
 - 로그인한 사용자는 우측 상단의 장바구니 아이콘 클릭 시 장바구니 페이지로 이동하여 주문할 수 있다.
 
 ## 개발 환경
-프론트엔드: React.js, Tailwind CSS<br>
+프론트엔드: React.js, TypeScript, Tailwind CSS<br>
 백엔드: Firebase (Authentication, Realtime Database, Storage)<br>
 라이브러리: react-router-dom (SPA 라우팅), react-query (서버 데이터 관리), @tanstack/react-query
 

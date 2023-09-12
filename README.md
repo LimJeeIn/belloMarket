@@ -21,7 +21,7 @@
 백엔드: Firebase (Authentication, Realtime Database, Storage)<br>
 라이브러리: react-router-dom (SPA 라우팅), react-query (서버 데이터 관리), @tanstack/react-query
 
-
+##
 - Firebase와의 연동은 초기 설정부터 비동기 처리까지 많은 어려움을 겪었습니다. 하지만 이 과정에서 비동기 프로그래밍에 대한 이해도가 높아졌으며, Firebase API에 대한 깊은 이해를 얻을 수 있었습니다.
 - React Query와 같은 외부 라이브러리를 사용하여 서버 데이터 관리하는 과정에서 캐싱, 데이터 동기화 등 다양한 문제들을 해결하는 방법을 배울 수 있었습니다.
 - ProtectedRoute 컴포넌트 구현 시 로그인 여부나 권한 체크 등 인증/인가 부분에 대해 공부할 기회가 되었습니다.

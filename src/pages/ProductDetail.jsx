@@ -25,37 +25,46 @@ export default function ProductDetail() {
 
   return (
     <>
-      <p className="mx-12 mt-4 text-gray-700">{category}</p>
-      <section className="flex flex-row p-4">
+      <section className="flex flex-row pt-12 pb-12 pl-24 pr-24 h-screen">
         <img
-          className="w-1/2 h-1/2 object-contain px-4 basis-7/12"
+          className="w-100 h-100 object-cover px-4 basis-7/12"
           src={image}
           alt={title}
         />
-        <div className="w-full basis-5/12 flex flex-col p-4">
-          <h2 className="text-3xl font-bold py-2">{title}</h2>
-          <p className="text-2xl font-bold py-2  border-b border-gray-400">
+        <div className="w-full basis-5/12 flex flex-col pt-8 pr-4 pb-0 pl-8">
+          <p className="mt-4 text-gray-700 text-sm leading-normal font-semibold">
+            {category}
+          </p>
+          <h2 className="pt-2 leading-normal text-3xl font-bold uppercase">
+            {title}
+          </h2>
+
+          <p className="text-1xl font-bold py-2 border-b border-gray-400">
             ₩{price}
           </p>
-          <p className="py-4 text-lg">{description}</p>
+          <p className="py-4 text-1xl">{description}</p>
           <div className="flex items-center">
-            <label className="text-brand font-bold" htmlFor="select">
-              옵션:
-            </label>
-            <select
-              id="select"
-              className="p-2 m-4 flex-1 border-2 border-dashed border-brand outline-none"
-              onChange={handleSelect}
-              value={selected}
-            >
-              {options &&
-                options.map((option, index) => (
-                  <option key={index}>{option}</option>
-                ))}
-            </select>
+            <p className="text-brand font-bold">SIZE : </p>
+            {options &&
+              options.map((option, index) => (
+                <label
+                  key={index}
+                  className="m-4 text-lg leading-normal font-semibold"
+                >
+                  <input
+                    type="radio"
+                    name="options"
+                    value={option}
+                    checked={selected === option}
+                    onChange={handleSelect}
+                    className="mr-2"
+                  />
+                  {`${option}`}
+                </label>
+              ))}
           </div>
           {success && <p className="my-2">{success}</p>}
-          <Button text="장바구니에 추가" onClick={handleClick} />
+          <Button text="ADD TO CART" onClick={handleClick} />
         </div>
       </section>
     </>

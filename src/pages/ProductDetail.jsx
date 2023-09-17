@@ -25,7 +25,7 @@ export default function ProductDetail() {
 
   return (
     <>
-      <section className="flex flex-row pt-12 pb-12 pl-24 pr-24 h-screen">
+      <section className="flex flex-row pt-12 pb-12 pl-24 pr-24 h-screen max-w-1620 gap-16 mx-auto">
         <img
           className="w-100 h-100 object-cover px-4 basis-7/12"
           src={image}

@@ -19,7 +19,7 @@ export default function Products() {
           </span>
         </div>
       </div>
-      <ul className="grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-14 p-4 max-w-screen-2xl m-auto ">
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 p-4 max-w-screen-2xl m-auto">
         {products &&
           products.map((product) => (
             <ProductCard key={product.id} product={product} />

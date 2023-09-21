@@ -17,10 +17,11 @@ export default function Navbar() {
         {/* <h1>Bello Market</h1> */}
         <img src={logo} alt="로고" />
       </Link>
-      <nav className="flex items-center gap-5 font-semibold text-xs">
-        <Link to="/products">Products</Link>
-        <Link to="/products">Gift Guide</Link>
-        <Link to="/products">Facial-appointments</Link>
+      <nav className="flex items-center gap-10 font-semibold text-xs">
+        <Link to="/products">NEW</Link>
+        <Link to="/products">SHOES</Link>
+        <Link to="/products">SALE</Link>
+        <Link to="/products">EXPOLE BELLO</Link>
       </nav>
       <nav className="flex items-center gap-5 font-semibold text-xs">
         {user && (

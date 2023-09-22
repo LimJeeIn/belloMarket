@@ -14,7 +14,6 @@ export default function Navbar() {
   return (
     <header className="flex justify-between border-b border-gray-300 max-w-screen-3xl px-6 h-[5.5rem]">
       <Link to="/" className="flex items-center w-[5.5rem]">
-        {/* <h1>Bello Market</h1> */}
         <img src={logo} alt="로고" />
       </Link>
       <nav className="flex items-center gap-10 font-semibold text-xs">

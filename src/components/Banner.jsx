@@ -1,5 +1,5 @@
 import React from 'react';
-import runningShoes from '../assets/image/main_running_shoes.gif';
+import runningShoes from '../assets/image/new_main_running_shoes.gif';
 
 export default function Banner() {
   return (

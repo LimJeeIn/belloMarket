@@ -25,15 +25,15 @@ export default function ProductDetail() {
 
   return (
     <>
-      <section className="md:flex flex-row pt-12 pb-12 pl-24 pr-24 h-screen max-w-1620 gap-16 mx-auto">
-        <div className="md:flex w-full space-x-16">
+      <section className="md:flex flex-row pt-12 pb-12 pl-4 pr-4 md:pl-24 md:pr-24 h-screen max-w-1620 gap-16 mx-auto">
+        <div className="lg:flex w-full space-x-16">
           <img
-            className="md:w-1/2 lg:w-1/2 h-full object-top object-contain px-4"
+            className="w-full md:w-full lg:w-1/2 object-top object-contain px-4"
             src={image}
             alt={title}
           />
-          <div className="w-1/2 flex flex-col pt-8 pr-4 pb-0 pl-8">
-            <p className="mt-4 text-gray-700 text-sm leading-normal font-semibold">
+          <div className="mt-1 md:w-full w-1/2 flex flex-col object-top pr-4 pb-0 pl-8">
+            <p className="text-gray-700 text-sm leading-normal font-semibold">
               {category}
             </p>
             <h2 className="pt-2 leading-normal text-xl font-bold uppercase">

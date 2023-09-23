@@ -28,3 +28,8 @@ code {
 input {
   @apply p-4 outline-none border border-gray-300 my-1;
 }
+
+.space-x-16 > :not([hidden]) ~ :not([hidden]) {
+  margin-right: 0;
+  margin-left: 0;
+}

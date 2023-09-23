@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <div className="px-6 bg-gray-100 mt-40">
       <div className="max-w-screen-2xl m-auto">
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-48 p-10 border-b border-gray-300">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-48 p-10 border-b border-gray-300 md:grid-none">
           <li>
             <h3 className="text-xs font-semibold leading-4">
               Want more BELLO?
@@ -25,7 +25,7 @@ export default function Footer() {
             </div>
           </li>
           <li>
-            <h3 className="text-xs font-semibold leading-4">
+            <h3 className="text-xs font-semibold leading-4 mt-[2.2rem] md:mt-[0]">
               CUSTOMER SERVICE
             </h3>
             <div className="mt-4 text-xs leading-4">
@@ -35,7 +35,9 @@ export default function Footer() {
             </div>
           </li>
           <li>
-            <h3 className="text-xs font-semibold leading-4">FOLLOW US</h3>
+            <h3 className="text-xs font-semibold leading-4 mt-[2.2rem] md:mt-[0]">
+              FOLLOW US
+            </h3>
             <ul className="mt-2 text-xs">
               <li className="mt-3 mb-2.5">
                 <span className="inline-block text-lg align-middle">
@@ -65,7 +67,7 @@ export default function Footer() {
           </li>
         </ul>
 
-        <ul className="grid grid-cols-3 gap-x-48 p-10">
+        <ul className="grid grid-cols-3 gap-x-48 p-10 md:grid-none">
           <li className="col-span-full md:col-span-1 flex justify-center md:justify-start items-center">
             <img
               src={logo}
@@ -76,7 +78,9 @@ export default function Footer() {
           </li>
           <ul className="col-span-full md:col-span-2">
             <li className="w-full md:w-auto md:flex-grow md:ml-auto">
-              <h3 className="text-xs font-semibold leading-4">ABOUT BELLO</h3>
+              <h3 className="text-xs font-semibold leading-4 mt-[2.2rem] md:mt-[0]">
+                ABOUT BELLO
+              </h3>
               <div className="mt-3 text-xs">
                 <p className="mb-2">1234 Park Ave, New York, NY 10001, USA</p>
                 <p className="mb-2">

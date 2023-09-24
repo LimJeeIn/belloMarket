@@ -32,7 +32,7 @@ export default function ProductDetail() {
             src={image}
             alt={title}
           />
-          <div className="mt-1 md:w-full w-1/2 flex flex-col object-top pr-4 pb-0 pl-8">
+          <div className="mt-6 w-full md:w-full flex flex-col object-top pr-4 pb-0 pl-8">
             <p className="text-gray-700 text-sm leading-normal font-semibold">
               {category}
             </p>

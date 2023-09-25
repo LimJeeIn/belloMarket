@@ -29,16 +29,19 @@ export default function CartItem({
 
   return (
     <>
-      <li className="flex justify-between my-2 items-center">
+      <li className="flex justify-between pb-4 mt-4 mb-4 items-center border-b border-gray-300">
         <img className="w-24 md:w-48 rounded-lg" src={image} alt={title} />
         <div className="flex-1 flex justify-between ml-4">
           <div className="basis-3/5">
-            <p className="text-lg">{title}</p>
-            <p className="text-xl font-bold text-brand">{option}</p>
+            <p className="text-base mb-0 sm:text-xl sm:mb3">{title}</p>
+            <p className="text-base font-medium text-brand mb3 sm:text-lg sm:font-bold">
+              {option}
+            </p>
             <p>₩{price}</p>
           </div>
           <div className="text-base flex items-center gap-2">
-            <div className="flex items-center border border-gray-300 p-2 px-3 gap-4">
+            <div className="flex items-center border border-gray-300 p-2 px-3 gap-1 text-xs sm:gap-4 sm:text-sm">
+              {/* flex items-center border border-gray-300 p2 px3 gap2 text-xs sm:gap4 sm:text-sm */}
               <AiOutlineMinus className={ICON_CLASS} onClick={handleMinus} />
               <span className="text-xl">{quantity}</span>
               <AiOutlinePlus className={ICON_CLASS} onClick={handlePlus} />

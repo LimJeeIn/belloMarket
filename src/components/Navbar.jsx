@@ -1,35 +1,66 @@
-import React from 'react';
+// Navbar.js
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FcAbout } from 'react-icons/fc';
-import User from './User';
-import Button from './ui/Button';
+import { BiMenu, BiX } from 'react-icons/bi';
 import { useAuthContext } from '../context/AuthContext';
-import CartStatus from './CartStatus';
+
+import NavigationLinks from './NavigationLinks';
+import UserIcons from './UserIcons';
+
+import logo from '../assets/image/logo.png';
 
 export default function Navbar() {
-  const { user, login, logout } = useAuthContext();
+  const { user } = useAuthContext();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
 
   return (
-    <header className="flex justify-between border-b border-gray-300 p-2">
-      <Link to="/" className="flex items-center text-4xl text-brand">
-        <h2>Bello market</h2>
-      </Link>
-      <nav className="flex items-center gap-4 font-semibold">
-        <Link to="/products">Products</Link>
-        {user && (
-          <Link to="/carts">
-            <CartStatus />
-          </Link>
+    <header className="relative flex justify-between border-b border-gray-300 max-w-screen-3xl px-6 h-[5.5rem]">
+      {/* Desktop navigation */}
+      <div className="hidden md:flex justify-between items-center w-full">
+        <Link
+          to="/"
+          className="flex items-center w-[5.5rem]"
+          onClick={closeMenu}
+        >
+          <img src={logo} alt="로고" />
+        </Link>
+        <NavigationLinks />
+        <UserIcons user={user} />
+      </div>
+
+      {/* Mobile navigation */}
+      <div className="md:hidden flex items-center justify-between w-full">
+        <Link
+          to="/"
+          className="flex items-center w-[5.5rem]"
+          onClick={closeMenu}
+        >
+          <img src={logo} alt="로고" />
+        </Link>
+
+        {isOpen ? (
+          <BiX onClick={() => setIsOpen(!isOpen)} className="text-3xl" />
+        ) : (
+          <BiMenu onClick={() => setIsOpen(!isOpen)} className="text-3xl" />
         )}
-        {user && user.isAdmin && (
-          <Link to="/products/new" className="text-2xl">
-            <FcAbout />
-          </Link>
+
+        {isOpen && (
+          <div className="absolute top-full right-0 h-screen bg-white z-50 flex flex-col gap-4 px-4 md:p-10">
+            <>
+              <UserIcons
+                user={user}
+                onClick={closeMenu}
+                className="justify-center"
+              />
+              <NavigationLinks onClick={closeMenu} />
+            </>
+          </div>
         )}
-        {user && <User user={user} />}
-        {!user && <Button text={'login'} onClick={login} />}
-        {user && <Button text={'logout'} onClick={logout} />}
-      </nav>
+      </div>
     </header>
   );
 }

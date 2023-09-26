@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useCart from '../hooks/useCart';
 import Button from '../components/ui/Button';
+import PurchaseSummary from '../components/PurchaseSummary';
 
 export default function Checkout() {
   const {
@@ -19,6 +20,13 @@ export default function Checkout() {
     e.preventDefault();
     console.log('결제가 진행되었습니다.');
   };
+
+  const totalPrice =
+    products &&
+    products.reduce(
+      (prev, current) => prev + parseInt(current.price) * current.quantity,
+      0,
+    );
 
   return (
     <form
@@ -115,14 +123,19 @@ export default function Checkout() {
           disabled={!shippingInfo.name || !shippingInfo.address}
         />
       </div>
-      <div className="col-span-full lg:col-span-1 xl:col-span-3 flex flex-col items-center mb-6 bg-[#f9f9f9] py-14 px-10">
-        <p className="text-2xl font-bold pb-4">주문 상품</p>
-        {products &&
-          products.map((product) => (
-            <p key={product.id}>
-              {product.title} - {product.quantity}
-            </p>
-          ))}
+
+      <div className="col-span-full lg:col-span-1 xl:col-span-3 ">
+        <PurchaseSummary totalPrice={totalPrice} />
+
+        <div className="col-span-full lg:col-span-1 xl:col-span-3 flex flex-col items-center mb-6 bg-[#f9f9f9] py-14 px-10">
+          <p className="text-2xl font-bold pb-4">주문 상품</p>
+          {products &&
+            products.map((product) => (
+              <p key={product.id}>
+                {product.title} - {product.quantity}
+              </p>
+            ))}
+        </div>
       </div>
     </form>
   );

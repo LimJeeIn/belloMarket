@@ -41,7 +41,6 @@ export default function CartItem({
           </div>
           <div className="text-base flex items-center gap-2">
             <div className="flex items-center border border-gray-300 p-2 px-3 gap-1 text-xs sm:gap-4 sm:text-sm">
-              {/* flex items-center border border-gray-300 p2 px3 gap2 text-xs sm:gap4 sm:text-sm */}
               <AiOutlineMinus className={ICON_CLASS} onClick={handleMinus} />
               <span className="text-xl">{quantity}</span>
               <AiOutlinePlus className={ICON_CLASS} onClick={handlePlus} />

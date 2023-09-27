@@ -11,6 +11,7 @@ import MyCart from './pages/MyCart';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
 import Checkout from './pages/Checkout';
+import Payment from './pages/Payment';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Checkout />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/checkout/payment',
+        element: (
+          <ProtectedRoute>
+            <Payment />
           </ProtectedRoute>
         ),
       },

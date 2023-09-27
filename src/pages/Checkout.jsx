@@ -2,18 +2,63 @@ import React, { useState } from 'react';
 import useCart from '../hooks/useCart';
 import Button from '../components/ui/Button';
 import PurchaseSummary from '../components/PurchaseSummary';
+import Postcode from '../components/Postcode';
+import { useNavigate } from 'react-router-dom';
 
 export default function Checkout() {
+  const [nameError, setNameError] = useState('');
+  const [addressError, setAddressError] = useState('');
+  const [detailAddressError, setDetailAddressError] = useState('');
+  const [phoneNumError, setPhoneNumError] = useState('');
+
   const {
     cartQuery: { data: products },
   } = useCart();
+
+  const navigate = useNavigate();
+
   const [shippingInfo, setShippingInfo] = useState({
     name: '',
+    postalCode: '',
     address: '',
+    detailAddress: '',
+    phoneNum: '',
   });
 
   const handleChange = (e) => {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
+
+    if (e.target.name === 'name') {
+      if (e.target.value.length < 2) {
+        setNameError('이름을 올바르게 적어주세요.');
+      } else {
+        setNameError('');
+      }
+    }
+
+    if (e.target.name === 'address') {
+      if (e.target.value.length < 1) {
+        setAddressError('주소를 올바르게 적어주세요.');
+      } else {
+        setAddressError('');
+      }
+    }
+
+    if (e.target.name === 'detailAddress') {
+      if (e.target.value.length < 1) {
+        setDetailAddressError('상세 주소를 올바르게 적어주세요.');
+      } else {
+        setDetailAddressError('');
+      }
+    }
+
+    if (e.target.name === 'phoneNum') {
+      if (!/^(\d{3}-\d{3,4}-\d{4})$/.test(e.target.value)) {
+        setPhoneNumError('휴대폰 번호 형식이 맞지 않습니다. ex)000-0000-0000');
+      } else {
+        setPhoneNumError('');
+      }
+    }
   };
 
   const handleSubmit = (e) => {
@@ -28,6 +73,14 @@ export default function Checkout() {
       0,
     );
 
+  const handleAddressSelected = (data) => {
+    setShippingInfo({
+      ...shippingInfo,
+      postalCode: data.zonecode,
+      address: data.address,
+    });
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -38,7 +91,7 @@ export default function Checkout() {
         <span className="mb-6 text-base text-gray-500 block">필수항목*</span>
         <div className="mb-4">
           <label htmlFor="이름" className="block font-semibold mb-2">
-            이름
+            이름*
           </label>
           <input
             name="name"
@@ -48,30 +101,22 @@ export default function Checkout() {
             placeholder="이름"
             required
           />
+          {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
         </div>
         <div className="mb-4">
           <label htmlFor="우편 번호" className="block font-semibold mb-2">
-            우편 번호
+            우편 번호*
           </label>
           <div className="flex items-center w-full gap-4">
             <div className="w-3/10" style={{ width: '30%' }}>
-              <button
-                type="button"
-                style={{
-                  padding: '1rem 3.5rem',
-                  color: '#fff',
-                  width: '100%',
-                }}
-                className="h-[4rem] bg-black"
-              >
-                우편번호 검색
-              </button>
+              <Postcode onAddressSelected={handleAddressSelected} />
             </div>
             <div className="w-7/10" style={{ width: '70%' }}>
               <input
-                type="address"
+                type="text"
                 placeholder="우편 번호"
-                required
+                value={shippingInfo.postalCode}
+                readOnly
                 className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium  h-[4rem]"
               />
             </div>
@@ -80,47 +125,68 @@ export default function Checkout() {
 
         <div className="mb-4">
           <label htmlFor="주소" className="block font-semibold mb-2">
-            주소
+            주소*
           </label>
           <input
+            type="text"
+            id="address"
             name="address"
-            className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium  h-[4rem]"
+            className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium h-[4rem]"
             value={shippingInfo.address}
             onChange={handleChange}
-            placeholder="주소"
+            readOnly
             required
           />
+          {addressError && <div style={{ color: 'red' }}>{addressError}</div>}
         </div>
         <div className="mb-4">
           <label htmlFor="상세주소" className="block font-semibold mb-2">
-            상세주소
+            상세주소*
           </label>
           <input
-            name="address"
+            name="detailAddress"
             className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium  h-[4rem]"
-            value={shippingInfo.address}
+            value={shippingInfo.detailAddress}
             onChange={handleChange}
             placeholder="상세주소"
             required
           />
+          {detailAddressError && (
+            <div style={{ color: 'red' }}>{detailAddressError}</div>
+          )}
         </div>
         <div className="mb-8">
           <label htmlFor="휴대폰 번호" className="block font-semibold mb-2">
-            휴대폰 번호
+            휴대폰 번호*
           </label>
           <input
-            name="number"
+            name="phoneNum"
             className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium  h-[4rem]"
-            value={shippingInfo.address}
+            value={shippingInfo.phoneNum}
             onChange={handleChange}
             placeholder="휴대폰 번호"
             required
           />
+          {phoneNumError && <div style={{ color: 'red' }}>{phoneNumError}</div>}
         </div>
         <Button
           text="결제하기"
           className="block ml-auto"
-          disabled={!shippingInfo.name || !shippingInfo.address}
+          disabled={
+            nameError ||
+            addressError ||
+            detailAddressError ||
+            phoneNumError ||
+            !shippingInfo.name ||
+            !shippingInfo.address ||
+            !shippingInfo.detailAddress ||
+            !shippingInfo.phoneNum ||
+            !shippingInfo.postalCode
+          }
+          onClick={(e) => {
+            e.preventDefault();
+            navigate('/checkout/payment');
+          }}
         />
       </div>
 

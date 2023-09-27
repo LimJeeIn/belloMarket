@@ -4,6 +4,7 @@ import Button from '../components/ui/Button';
 import PurchaseSummary from '../components/PurchaseSummary';
 import Postcode from '../components/Postcode';
 import { useNavigate } from 'react-router-dom';
+import OrderProductList from '../components/OrderProductList';
 
 export default function Checkout() {
   const [nameError, setNameError] = useState('');
@@ -185,23 +186,16 @@ export default function Checkout() {
           }
           onClick={(e) => {
             e.preventDefault();
-            navigate('/checkout/payment');
+            navigate('/checkout/payment', {
+              state: { totalPrice, products, shippingInfo },
+            });
           }}
         />
       </div>
 
       <div className="col-span-full lg:col-span-1 xl:col-span-3 ">
         <PurchaseSummary totalPrice={totalPrice} />
-
-        <div className="col-span-full lg:col-span-1 xl:col-span-3 flex flex-col items-center mb-6 bg-[#f9f9f9] py-14 px-10">
-          <p className="text-2xl font-bold pb-4">주문 상품</p>
-          {products &&
-            products.map((product) => (
-              <p key={product.id}>
-                {product.title} - {product.quantity}
-              </p>
-            ))}
-        </div>
+        <OrderProductList products={products} />
       </div>
     </form>
   );

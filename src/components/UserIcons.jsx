@@ -4,15 +4,34 @@ import User from './User';
 import Button from './ui/Button';
 import CartStatus from './CartStatus';
 import { useAuthContext } from '../context/AuthContext';
+import styled from 'styled-components';
+
+const StyledComponent = styled.nav`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  font-weight: bold;
+  font-size: 0.75rem;
+
+  @media (max-width: 980px) {
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  font-size: 1.5rem;
+`;
 
 export default function UserIcons({ user, onClick }) {
   const { login, logout } = useAuthContext();
 
   return (
-    <nav className="flex items-center md:justify-start justify-center gap-5 font-semibold text-xs mb-8 md:mb-0">
-      <Link to="/carts" className="text-2xl" onClick={onClick}>
+    <StyledComponent>
+      <StyledLink to="/carts" onClick={onClick}>
         <BiHeart />
-      </Link>
+      </StyledLink>
 
       <Link to="/carts" onClick={onClick}>
         <CartStatus />
@@ -23,15 +42,15 @@ export default function UserIcons({ user, onClick }) {
       {user && (
         <>
           {user.isAdmin && (
-            <Link to="/products/new" className="text-2xl" onClick={onClick}>
+            <StyledLink to="/products/new" onClick={onClick}>
               <BiEditAlt />
-            </Link>
+            </StyledLink>
           )}
 
           <User user={user} />
           <Button text={'logout'} onClick={logout} />
         </>
       )}
-    </nav>
+    </StyledComponent>
   );
 }

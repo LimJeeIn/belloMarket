@@ -1,16 +1,47 @@
 import React from 'react';
 import PriceCard from '../components/PriceCard';
+import styled from 'styled-components';
+
+const PurchaseHistoryContainer = styled.div`
+  grid-column: span full/span full;
+
+  @media (min-width: 1280px) {
+    grid-column: span 3 / span 3;
+  }
+
+  @media (max-width: 1024px) {
+    grid-column: span 1 / span 1;
+  }
+
+  @media (max-width: 640px) {
+    grid-column: 1 / -1;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background-color: #f9f9f9;
+  padding: 3.5rem 2.5rem 3.5rem 2.5rem;
+`;
+
+const PurchaseHistoryTitle = styled.p`
+  padding-bottom: 1rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: bold;
+`;
 
 const SHIPPING = 3000;
 
 export default function PurchaseSummary({ totalPrice, onCheckout, children }) {
   return (
-    <div className="col-span-full lg:col-span-1 xl:col-span-3 flex flex-col items-center mb-6 bg-[#f9f9f9] py-14 px-10">
-      <p className="text-2xl font-bold pb-4">구매 내역</p>
+    <PurchaseHistoryContainer>
+      <PurchaseHistoryTitle>구매 내역</PurchaseHistoryTitle>
       <PriceCard text="제품" price={totalPrice} />
       <PriceCard text="배송비" price={SHIPPING} />
       <PriceCard text="총 결제 금액" price={totalPrice + SHIPPING} />
       {children}
-    </div>
+    </PurchaseHistoryContainer>
   );
 }

@@ -2,6 +2,124 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import useCart from '../hooks/useCart';
+import styled from 'styled-components';
+
+const ProductDetailContainer = styled.section`
+  display: flex;
+  flex-direction: row;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @media (min-width: 768px) {
+    padding-left: 6rem;
+    padding-right: 6rem;
+    height: 100vh;
+    max-width: 1620px;
+    gap: 4em;
+    margin: auto;
+  }
+`;
+
+const ProductDetailWrapper = styled.div`
+  width: 100%;
+  display: flex;
+
+  @media (min-width: 1024px) {
+    gap: 4em;
+  }
+
+  @media (max-width: 1260px) {
+    flex-direction: column;
+  }
+`;
+
+const ProductDetailImage = styled.img`
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 50%;
+  }
+
+  @media (max-width: 1260px) {
+    width: 100%;
+  }
+
+  object-position: top;
+  object-fit: contain;
+  padding-left: 0.5em;
+`;
+
+const ProductDetailInfo = styled.div`
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  object-position-top;
+  padding-right:1rem; 
+  padding-bottom:0; 
+  padding-left :2em;
+
+   @media (min-width :768px){
+     width :100%
+   }
+`;
+
+const ProductCategory = styled.p`
+  color: #4b5563; // gray-700
+  font-size: 0.875rem; // text-sm
+  line-height: normal;
+  font-weight: bold; // font-semibold
+`;
+
+const ProductTitle = styled.p`
+  padding-top: 0.5em; // pt-2
+  line-height: normal;
+  font-size: 1.25rem; // text-xl
+  font-weight: bold; // font-bold
+  text-transform: uppercase;
+`;
+
+const ProductPrice = styled.p`
+  font-size: 1.125rem; // text-lg
+  font-weight: 600; // font-semibold
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: solid thin #cbd5e0; // border-b border-gray-400
+`;
+
+const ProductDescription = styled.p`
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 0.875rem; // text-sm
+`;
+
+const ProductOptions = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+`;
+
+const ProductSize = styled.p`
+  font-weight: bold;
+`;
+
+const ProductLabel = styled.label`
+  margin-right: 1em;
+  font-size: 1rem; // text-base
+  line-height: normal;
+  font-weight: bold; //font-semibold,
+`;
+
+const ProductRadio = styled.input`
+  margin-left: 1em;
+  margin-right: 1em;
+`;
 
 export default function ProductDetail() {
   const { addOrUpdateItem } = useCart();
@@ -25,50 +143,36 @@ export default function ProductDetail() {
 
   return (
     <>
-      <section className="md:flex flex-row pt-12 pb-12 pl-4 pr-4 md:pl-24 md:pr-24 h-screen max-w-1620 gap-16 mx-auto">
-        <div className="lg:flex w-full space-x-16">
-          <img
-            className="w-full md:w-full lg:w-1/2 object-top object-contain px-4"
-            src={image}
-            alt={title}
-          />
-          <div className="mt-6 w-full md:w-full flex flex-col object-top pr-4 pb-0 pl-8">
-            <p className="text-gray-700 text-sm leading-normal font-semibold">
-              {category}
-            </p>
-            <h2 className="pt-2 leading-normal text-xl font-bold uppercase">
-              {title}
-            </h2>
+      <ProductDetailContainer>
+        <ProductDetailWrapper>
+          <ProductDetailImage src={image} alt={title} />
+          <ProductDetailInfo>
+            <ProductCategory>{category}</ProductCategory>
+            <ProductTitle>{title}</ProductTitle>
 
-            <p className="text-lg font-semibold py-2 border-b border-gray-400">
-              ₩{price}
-            </p>
-            <p className="py-4 text-sm">{description}</p>
-            <div className="flex items-center mb-8">
-              <p className="text-brand font-semibold">SIZE : </p>
+            <ProductPrice>₩{price}</ProductPrice>
+            <ProductDescription>{description}</ProductDescription>
+            <ProductOptions>
+              <ProductSize>SIZE : </ProductSize>
               {options &&
                 options.map((option) => (
-                  <label
-                    key={option}
-                    className="m-r4 text-base leading-normal font-semibold"
-                  >
-                    <input
+                  <ProductLabel key={option}>
+                    <ProductRadio
                       type="radio"
                       name="options"
                       value={option}
                       checked={selected === option}
                       onChange={handleSelect}
-                      className="mx-4"
                     />
                     {`${option}`}
-                  </label>
+                  </ProductLabel>
                 ))}
-            </div>
+            </ProductOptions>
             {success && <p>{success}</p>}
             <Button text="ADD TO CART" onClick={handleClick} />
-          </div>
-        </div>
-      </section>
+          </ProductDetailInfo>
+        </ProductDetailWrapper>
+      </ProductDetailContainer>
     </>
   );
 }

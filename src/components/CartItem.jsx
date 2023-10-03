@@ -1,10 +1,145 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { IoMdClose } from 'react-icons/io';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import useCart from '../hooks/useCart';
 
-const ICON_CLASS =
-  'transition-all cursor-pointer hover:text-brand hover:scale-105 mx-1';
+const ListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  border-bottom: solid thin gray;
+`;
+
+const Image = styled.img`
+  width: 6rem;
+  border-radius: 0.5rem;
+
+  @media (min-width: 768px) {
+    width: 12rem;
+  }
+`;
+
+const ProductInfoContainer = styled.div`
+  display: flex;
+  flex: 1 1;
+  justify-content: space-between;
+  margin-left: 1em;
+`;
+
+const BasisContainer = styled.div`
+  flex-basis: 60%;
+`;
+
+const CartTitle = styled.p`
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1rem;
+  line-height: 1.5rem;
+
+  @media (max-width: 640px) {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    gap: 1rem;
+  }
+
+  svg {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: #252525;
+      transform: scale(1.05);
+    }
+  }
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  padding: 0.8rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  gap: 1rem;
+
+  @media (min-width: 640px) {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  @media (max-width: 639px) {
+    font-size: 12px;
+    padding: 0.5rem;
+  }
+`;
+
+const TextXL = styled.span`
+  display: block;
+  font-size: 1.25rem;
+`;
+
+const Delete = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const ModalOverlay = styled.div`
+ position:absolute; 
+ top:0; left:0; right:0; bottom0; 
+ background-color:black; 
+ opacity:.7;
+`;
+
+const ModalContainer = styled.div`
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // background-color: rgb(107 114 128);
+  background-color: white;
+  padding: 4rem;
+  border: 3px solid #000;
+  border-radius: 0.8rem;
+
+  @media (max-width: 640px) {
+    padding: 2rem;
+  }
+`;
+
+const ModalButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
+`;
+
+const CloseButton = styled(IoMdClose)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+    transform: scale(1.2);
+  }
+`;
 
 export default function CartItem({
   product,
@@ -28,59 +163,44 @@ export default function CartItem({
   };
 
   return (
-    <>
-      <li className="flex justify-between pb-4 mt-4 mb-4 items-center border-b border-gray-300">
-        <img className="w-24 md:w-48 rounded-lg" src={image} alt={title} />
-        <div className="flex-1 flex justify-between ml-4">
-          <div className="basis-3/5">
-            <p className="text-base mb-0 sm:text-xl sm:mb3">{title}</p>
-            <p className="text-base font-medium text-brand mb3 sm:text-lg sm:font-bold">
-              {option}
-            </p>
-            <p>₩{price}</p>
-          </div>
-          <div className="text-base flex items-center gap-2">
-            <div className="flex items-center border border-gray-300 p-2 px-3 gap-1 text-xs sm:gap-4 sm:text-sm">
-              <AiOutlineMinus className={ICON_CLASS} onClick={handleMinus} />
-              <span className="text-xl">{quantity}</span>
-              <AiOutlinePlus className={ICON_CLASS} onClick={handlePlus} />
-            </div>
-            <IoMdClose className={ICON_CLASS} onClick={handleDeleteClick} />
-          </div>
-        </div>
-      </li>
+    <ListItem>
+      <Image src={image} alt={title} />
+      <ProductInfoContainer>
+        {/* Product details */}
+        <BasisContainer>
+          <CartTitle>{title}</CartTitle>
+          <p style={{ fontWeight: '700' }}>{option}</p>
+          <p>₩{price}</p>
+        </BasisContainer>
+
+        {/* Icons */}
+        <IconContainer>
+          <IconWrapper>
+            <AiOutlineMinus onClick={handleMinus} />
+            <TextXL>{quantity}</TextXL>
+            <AiOutlinePlus onClick={handlePlus} />
+          </IconWrapper>
+
+          <Delete>
+            <IoMdClose onClick={handleDeleteClick} />
+          </Delete>
+        </IconContainer>
+      </ProductInfoContainer>
 
       {/* Modal */}
       {isModalOpen && (
-        <div
-          className="fixed z-10 inset-0 overflow-y-auto"
-          aria-labelledby="modal-title"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div
-              className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-              aria-hidden="true"
-            ></div>
-            <span
-              className="hidden sm:inline-block sm:align-middle sm:h-screen"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3>삭제 하시겠습니까?</h3>
-              </div>
-              <div className="bg-gray-lightest p-y2 px-x2 flex justify-end gap-x2 border-t border-gray-lighter">
-                <button onClick={handleDeleteConfirm}>확인</button>
-                <button onClick={() => setModalOpen(false)}>취소</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <>
+          <ModalOverlay onClick={handleDeleteClick} />
+          <ModalContainer>
+            <CloseButton size={20} onClick={() => setModalOpen(false)} />
+            <h3 style={{ marginBottom: '2rem' }}>삭제 하시겠습니까?</h3>
+            <ModalButtonWrapper>
+              <button onClick={handleDeleteConfirm}>확인</button>
+              <button onClick={() => setModalOpen(false)}>취소</button>
+            </ModalButtonWrapper>
+          </ModalContainer>
+        </>
       )}
-    </>
+    </ListItem>
   );
 }

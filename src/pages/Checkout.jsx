@@ -5,6 +5,126 @@ import PurchaseSummary from '../components/PurchaseSummary';
 import Postcode from '../components/Postcode';
 import { useNavigate } from 'react-router-dom';
 import OrderProductList from '../components/OrderProductList';
+import styled from 'styled-components';
+
+const Form = styled.form`
+  display: grid;
+  margin: auto;
+  padding: 1rem;
+  max-width: 1536px;
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  @media (min-width: 640px) {
+    gap: 3.5rem;
+    margin-top: 0px;
+  }
+`;
+
+const InfoWrapper = styled.div`
+  grid-column: span full / span full;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+
+  @media (min-width: 1280px) {
+    grid-column: span 7 / span 7;
+  }
+
+  @media (max-width: 1024px) {
+    grid-column: span 1 / span 1;
+  }
+
+  @media (min-width: 640px) {
+    padding: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    grid-column: 1 / -1;
+    margin-bottom: 2rem;
+  }
+`;
+
+const PurchaseHistoryWapper = styled.div`
+  grid-column: span full/span full;
+
+  @media (min-width: 1280px) {
+    grid-column: span 3 / span 3;
+  }
+
+  @media (max-width: 1024px) {
+    grid-column: span 1 / span 1;
+  }
+
+  @media (max-width: 640px) {
+    grid-column: 1 / -1;
+  }
+`;
+
+const InfoTitle = styled.p`
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  padding-bottom: 1rem;
+`;
+
+const InfoSubTitle = styled.span`
+  display: block;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #718096;
+`;
+
+const InfoContent = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const InfoContent2 = styled.div`
+  margin-bottom: 2rem;
+`;
+
+const Label = styled.label`
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+`;
+
+const StyledDivFlex = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+`;
+
+const Div30 = styled.div`
+  width: 30%;
+`;
+
+const Div70 = styled.div`
+  width: 70%;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 1rem 0.5rem 1rem 0.5rem;
+  background-color: white;
+  border-width: 1px;
+  border-color: #73748b;
+  text-color: #001022;
+  height: 2rem;
+  border-radius: 0;
+  line-height: 1;
+  font-weight: 500;
+  height: 4rem;
+`;
 
 export default function Checkout() {
   const [nameError, setNameError] = useState('');
@@ -83,70 +203,54 @@ export default function Checkout() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="grid grid-cols-1 xl:grid-cols-10 gap-0 sm:gap-14 mt-6 sm:mt-0 p-4 max-w-screen-2xl m-auto"
-    >
-      <div className="col-span-full lg:col-span-1 xl:col-span-7 mb-8 p-0 sm:p-4 px-8 pl-0 pr-0">
-        <p className="text-2xl font-bold pb-4">배송지 정보</p>
-        <span className="mb-6 text-base text-gray-500 block">필수항목*</span>
-        <div className="mb-4">
-          <label htmlFor="이름" className="block font-semibold mb-2">
-            이름*
-          </label>
-          <input
+    <Form onSubmit={handleSubmit}>
+      <InfoWrapper>
+        <InfoTitle>배송지 정보</InfoTitle>
+        <InfoSubTitle>필수항목*</InfoSubTitle>
+        <InfoContent>
+          <Label htmlFor="이름">이름*</Label>
+          <Input
             name="name"
-            className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium  h-[4rem]"
             value={shippingInfo.name}
             onChange={handleChange}
             placeholder="이름"
             required
           />
           {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="우편 번호" className="block font-semibold mb-2">
-            우편 번호*
-          </label>
-          <div className="flex items-center w-full gap-4">
-            <div className="w-3/10" style={{ width: '30%' }}>
+        </InfoContent>
+        <InfoContent>
+          <Label htmlFor="우편 번호">우편 번호*</Label>
+          <StyledDivFlex>
+            <Div30>
               <Postcode onAddressSelected={handleAddressSelected} />
-            </div>
-            <div className="w-7/10" style={{ width: '70%' }}>
-              <input
+            </Div30>
+            <Div70>
+              <Input
                 type="text"
                 placeholder="우편 번호"
                 value={shippingInfo.postalCode}
                 readOnly
-                className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium  h-[4rem]"
               />
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="주소" className="block font-semibold mb-2">
-            주소*
-          </label>
-          <input
+            </Div70>
+          </StyledDivFlex>
+        </InfoContent>
+        <InfoContent>
+          <Label htmlFor="주소">주소*</Label>
+          <Input
             type="text"
             id="address"
             name="address"
-            className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium h-[4rem]"
             value={shippingInfo.address}
             onChange={handleChange}
             readOnly
             required
           />
           {addressError && <div style={{ color: 'red' }}>{addressError}</div>}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="상세주소" className="block font-semibold mb-2">
-            상세주소*
-          </label>
-          <input
+        </InfoContent>
+        <InfoContent>
+          <Label htmlFor="상세주소">상세주소*</Label>
+          <Input
             name="detailAddress"
-            className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium  h-[4rem]"
             value={shippingInfo.detailAddress}
             onChange={handleChange}
             placeholder="상세주소"
@@ -155,21 +259,18 @@ export default function Checkout() {
           {detailAddressError && (
             <div style={{ color: 'red' }}>{detailAddressError}</div>
           )}
-        </div>
-        <div className="mb-8">
-          <label htmlFor="휴대폰 번호" className="block font-semibold mb-2">
-            휴대폰 번호*
-          </label>
-          <input
+        </InfoContent>
+        <InfoContent2>
+          <Label htmlFor="휴대폰 번호">휴대폰 번호*</Label>
+          <Input
             name="phoneNum"
-            className="w-full py-4 px-2 bg-white border-[1px] border-[#73748b] rounded-none leading-none text-[#001022] font-medium  h-[4rem]"
             value={shippingInfo.phoneNum}
             onChange={handleChange}
             placeholder="휴대폰 번호"
             required
           />
           {phoneNumError && <div style={{ color: 'red' }}>{phoneNumError}</div>}
-        </div>
+        </InfoContent2>
         <Button
           text="결제하기"
           className="block ml-auto"
@@ -191,12 +292,12 @@ export default function Checkout() {
             });
           }}
         />
-      </div>
+      </InfoWrapper>
 
-      <div className="col-span-full lg:col-span-1 xl:col-span-3 ">
+      <PurchaseHistoryWapper>
         <PurchaseSummary totalPrice={totalPrice} />
         <OrderProductList products={products} />
-      </div>
-    </form>
+      </PurchaseHistoryWapper>
+    </Form>
   );
 }

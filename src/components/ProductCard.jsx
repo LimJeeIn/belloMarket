@@ -1,24 +1,53 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const ProductCardContainer = styled.li`
+  overflow: hidden;
+  cursor: pointer;
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+`;
+
+const Image = styled.img`
+  width: 100%;
+`;
+
+const InfoContainer = styled.div`
+  padding: 1rem 0.75rem 1rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 600;
+`;
+
+const Title = styled.h4`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
 
 export default function ProductCard({
   product,
   product: { id, image, title, category, price },
 }) {
   const navigate = useNavigate();
+
   return (
-    <li className="overflow-hidden cursor-pointer">
-      <button
-        onClick={() => {
-          navigate(`/products/${id}`, { state: { product } });
-        }}
+    <ProductCardContainer>
+      <StyledButton
+        onClick={() => navigate(`/products/${id}`, { state: { product } })}
       >
-        <img className="w-full" src={image} alt={title} />
-        <div className=" py-4 px-3 flex justify-between items-center text-sm leading-normal font-semibold">
-          <h3 className="truncate">{title}</h3>
+        <Image src={image} alt={title} />
+        <InfoContainer>
+          <Title>{title}</Title>
           <p>{`₩${price}`}</p>
-        </div>
-      </button>
-    </li>
+        </InfoContainer>
+      </StyledButton>
+    </ProductCardContainer>
   );
 }

@@ -1,11 +1,27 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const UserContainer = styled.div`
+  display: none;
+  align-items: center;
+  flex-shrink: 0;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+`;
+
+const DisplayName = styled.div`
+  border-bottom: 1px solid black;
+  padding-top: 0.25rem;
+`;
 
 export default function User({ user: { displayName } }) {
   return (
-    <div className="hidden md:flex items-center shrink-0">
-      <div className="border-b border-black pt-1">
+    <UserContainer>
+      <DisplayName>
         <span>{displayName} 님</span>
-      </div>
-    </div>
+      </DisplayName>
+    </UserContainer>
   );
 }

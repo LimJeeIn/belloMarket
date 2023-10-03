@@ -1,15 +1,30 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 
-export default function Button({ text, onClick, className, disabled }) {
+const StyledButton = styled.button`
+  width: 100%;
+  background-color: #252525;
+  color: white;
+  padding: 1rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      opacity: 0.5;
+      cursor: not-allowed;
+    `}
+`;
+
+export default function Button({ text, onClick, className = '', disabled }) {
   return (
-    <button
-      className={`bg-brand text-white py-4 px-4 rounded-sm hover:brightness-110 font-semibold ${className} ${
-        disabled ? 'opacity-50 cursor-not-allowed' : ''
-      }`}
-      onClick={onClick}
-      disabled={disabled}
-    >
+    <StyledButton onClick={onClick} disabled={disabled} className={className}>
       {text}
-    </button>
+    </StyledButton>
   );
 }

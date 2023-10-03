@@ -2,6 +2,41 @@ import React, { useState } from 'react';
 import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
 import useProducts from '../hooks/useProducts';
+import styled from 'styled-components';
+
+const NewProductSection = styled.section`
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  padding: 1rem;
+  max-width:850px;
+}
+`;
+
+const Title = styled.h2`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`;
+
+const SuccessMessage = styled.p`
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const ImagePreview = styled.img`
+  width: 24rem;
+  margin: auto;
+  margin-bottom: 0.5rem;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+`;
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
@@ -40,17 +75,13 @@ export default function NewProduct() {
   };
 
   return (
-    <section className="w-full text-center">
-      <h2 className="text-2xl font-bold my-4">새로운 제품 등록</h2>
-      {success && <p className="my-2">✅ {success}</p>}
+    <NewProductSection>
+      <Title>새로운 제품 등록</Title>
+      {success && <SuccessMessage>✅ {success}</SuccessMessage>}
       {file && (
-        <img
-          className="w-96 mx-auto mb-2"
-          src={URL.createObjectURL(file)}
-          alt="local file"
-        />
+        <ImagePreview src={URL.createObjectURL(file)} alt="local file" />
       )}
-      <form className="flex flex-col px-12" onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <input
           type="file"
           accept="image/*"
@@ -102,7 +133,7 @@ export default function NewProduct() {
           text={isUploading ? '업로드중...' : '제품 등록하기'}
           disabled={isUploading}
         />
-      </form>
-    </section>
+      </Form>
+    </NewProductSection>
   );
 }

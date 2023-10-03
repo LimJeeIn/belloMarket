@@ -1,4 +1,23 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
+
+const PostCodeButton = styled.button`
+  padding: 0.5rem;
+  color: #ffffff;
+  width: 100%;
+  background-color: #000000;
+  height: 4rem;
+
+  @media (min-width: 640px) {
+    padding: 1em;
+    height: 4em;
+  }
+
+  @media (min-width: 768px) {
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+`;
 
 const loadPostCodeScript = () => {
   return new Promise((resolve) => {
@@ -24,11 +43,6 @@ export default function Postcode({ onAddressSelected }) {
   };
 
   return (
-    <button
-      onClick={handleOpenPostCode}
-      className="p-2 sm:p-4 md:px-12 text-white w-full sm:h-16 bg-black h-[4rem]"
-    >
-      우편번호 검색
-    </button>
+    <PostCodeButton onClick={handleOpenPostCode}>우편번호 검색</PostCodeButton>
   );
 }

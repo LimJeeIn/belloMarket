@@ -4,6 +4,63 @@ import CartItem from '../components/CartItem';
 import useCart from '../hooks/useCart';
 import PurchaseSummary from '../components/PurchaseSummary';
 import Button from '../components/ui/Button';
+import styled from 'styled-components';
+
+const CartSection = styled.section`
+  display: grid;
+  margin: auto;
+  padding: 1rem;
+  max-width: 1536px;
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  @media (min-width: 640px) {
+    gap: 3.5rem;
+    margin-top: 0px;
+  }
+`;
+
+const CartUl = styled.ul`
+  grid-column: span full / span full;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+
+  @media (min-width: 1280px) {
+    grid-column: span 7 / span 7;
+  }
+
+  @media (max-width: 1024px) {
+    grid-column: span 1 / span 1;
+  }
+
+  @media (min-width: 640px) {
+    padding: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    grid-column: 1 / -1;
+    margin-bottom: 2rem;
+  }
+`;
+
+const CustomButton = styled(Button)`
+  margin-top: 2rem;
+`;
+
+const CartTitle = styled.p`
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  padding-bottom: 1rem;
+`;
 
 export default function MyCart() {
   const navigate = useNavigate();
@@ -21,26 +78,25 @@ export default function MyCart() {
       0,
     );
   return (
-    <section className="grid grid-cols-1 xl:grid-cols-10 gap-0 sm:gap-14 mt-6 sm:mt-0 p-4 max-w-screen-2xl m-auto">
+    <CartSection>
       {!hasProducts && <p>장바구니에 상품이 없습니다. 열심히 쇼핑해 주세요!</p>}
       {hasProducts && (
         <>
-          <ul className="col-span-full lg:col-span-1 xl:col-span-7 mb-8 p-0 sm:p-4 px-8 pl-0 pr-0">
-            <p className="text-2xl font-bold pb-4">장바구니</p>
+          <CartUl>
+            <CartTitle>장바구니</CartTitle>
             {products &&
               products.map((product) => (
                 <CartItem key={product.id} product={product} />
               ))}
-          </ul>
+          </CartUl>
           <PurchaseSummary totalPrice={totalPrice}>
-            <Button
+            <CustomButton
               text="결제 계속하기"
               onClick={() => navigate('/checkout')}
-              className="w-full mt-8"
             />
           </PurchaseSummary>
         </>
       )}
-    </section>
+    </CartSection>
   );
 }

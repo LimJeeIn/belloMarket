@@ -1,7 +1,7 @@
 ## 프로젝트명
 벨로마켓
 
-"Bello Market"은 React.js 및 Firebase를 사용하여 개발된 러닝화 상품을 판매하는 온라인 쇼핑몰 웹 애플리케이션입니다. 
+"Bello Market"은 TypeScript 및 Firebase를 사용하여 개발된 러닝화 상품을 판매하는 온라인 쇼핑몰 웹 애플리케이션입니다. 
 사용자 들은 다양한 제품들 중에서 자신이 원하는 상품을 장바구니에 담아 구매할 수 있습니다. 
 또한, 관리자 계정으로 로그인하면 새로운 제품 등록도 가능합니다.
 
@@ -15,7 +15,7 @@
 
 
 ## 개발 환경
-프론트엔드: React.js, TypeScript, Tailwind CSS<br>
+프론트엔드: React.js, TypeScript, styled-component<br>
 백엔드: Firebase (Authentication, Realtime Database, Storage)<br>
 라이브러리: react-router-dom (SPA 라우팅), react-query (서버 데이터 관리), @tanstack/react-query
 

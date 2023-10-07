@@ -35,7 +35,7 @@ const UserIcons: FC<UserIconsProps> = ({ user, onClick }) => {
 
   return (
     <StyledComponent>
-      <StyledLink to="/carts" onClick={onClick}>
+      <StyledLink to="/wishList" onClick={onClick}>
         <BiHeart />
       </StyledLink>
 

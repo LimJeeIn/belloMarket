@@ -178,13 +178,18 @@ export default function CartItem({ product }: CartItemProps) {
         {/* Product details */}
         <BasisContainer>
           <CartTitle>{title}</CartTitle>
-          {options &&
+          {/* {options &&
             Array.isArray(options) &&
             options.map((option: string, index: number) => (
               <p key={index} style={{ fontWeight: '700' }}>
                 {option}
               </p>
-            ))}
+            ))} */}
+
+          {product.option && (
+            <p style={{ fontWeight: '700' }}>{product.option}</p>
+          )}
+
           <p>₩{price}</p>
         </BasisContainer>
 

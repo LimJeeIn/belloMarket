@@ -1,7 +1,8 @@
 import React from 'react';
+import { GoHeart } from 'react-icons/go';
 
 const WishButton = () => {
-  return <div>WishButton</div>;
+  return <GoHeart />;
 };
 
 export default WishButton;

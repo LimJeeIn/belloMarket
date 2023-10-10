@@ -4,6 +4,7 @@ import Button from '../components/ui/Button';
 import useCart from '../hooks/useCart';
 import styled from 'styled-components';
 import { useAuthContext } from '../context/AuthContext';
+import { GoHeart } from 'react-icons/go';
 
 const ProductDetailContainer = styled.section`
   display: flex;
@@ -69,6 +70,13 @@ const ProductDetailInfo = styled.div`
    @media (min-width :768px){
      width :100%
    }
+`;
+
+const WishWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 `;
 
 const ProductCategory = styled.p`
@@ -165,7 +173,11 @@ export default function ProductDetail() {
         <ProductDetailWrapper>
           <ProductDetailImage src={image} alt={title} />
           <ProductDetailInfo>
-            <ProductCategory>{category}</ProductCategory>
+            <WishWrapper>
+              <ProductCategory>{category}</ProductCategory>
+              <GoHeart style={{ fontSize: '1.2rem' }} />
+            </WishWrapper>
+
             <ProductTitle>{title}</ProductTitle>
 
             <ProductPrice>₩{price}</ProductPrice>
